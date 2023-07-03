@@ -1,12 +1,56 @@
 'use client'
-import SidebarItens from "@/components/SidebarItens";
-import SidebarSpan from "@/components/SidebarSpans";
-import Image from "next/image";
-import { MusicNotes, CaretLeft, CaretRight, Heart, SquaresFour, Radio, Microphone, MagnifyingGlass, Bell } from "@phosphor-icons/react";
-import FavoriteSingers from "@/components/SingersRounded";
-import SingersSquare from "@/components/SingersSquare";
+import SectionMain from "@/components/Main/SectionMain";
+import SingersGrid from "@/components/Main/SingersGrid";
+import FavoriteSingers from "@/components/Main/SingersRounded";
+import SidebarItens from "@/components/Sidebar/SidebarItens";
+import SidebarSpan from "@/components/Sidebar/SidebarSpans";
+import { Bell, CaretLeft, CaretRight, Heart, MagnifyingGlass, Microphone, MusicNotes, Pause, Play, Plus, Radio, SkipBack, SkipForward, Sliders, SquaresFour } from "@phosphor-icons/react";
+import { Repeat, Shuffle, Volume2 } from "lucide-react";
+import { useState } from "react";
+
+
+const favoriteSingersData = [
+  {
+    src: "/rickAstley.jpg",
+    singer: "Rick Astley",
+    fans: "173.837 fãs",
+    key: 1
+  },
+  {
+    src: "/eminemAvatar.jpg",
+    singer: "Eminem",
+    fans: "16.383.967 fãs",
+    key: 1
+  },
+  {
+    src: "/siaAvatar.jpg",
+    singer: "Sia",
+    fans: "7.810.124 fãs",
+    key: 1
+  },
+  {
+    src: "/articMonkeys.png",
+    singer: "Artic Monkeys",
+    fans: "4.167.886 fãs",
+    key: 1
+  },
+]
 
 export default function HomePage() {
+
+  const nameMusic = 'Life Letters'
+
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  function handleClickPlay() {
+    setIsPlaying(!isPlaying)
+  }
+
+  function handleClickHeart() {
+    setIsFavorite(!isFavorite)
+  }
+
   return (
     <div className="h-screen flex flex-col bg-zinc-900 ">
       <div className="flex flex-1 ">
@@ -61,7 +105,7 @@ export default function HomePage() {
               />
               <SidebarSpan
                 text="Concerts"
-                className="pb-20"
+                className="pb-24"
               />
             </div>
           </div>
@@ -78,61 +122,100 @@ export default function HomePage() {
             </div>
           </header>
           <div className="overflow-y-auto max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-zinc-700 pb-4">
-            <div className="mt-16 flex flex-col">
-              <h3 className="ml-24 mb-8 text-zinc-100 font-semibold text-2xl">Seus artitas favoritos</h3>
-              <div className="flex gap-6 justify-center">
-                <FavoriteSingers 
-                src="/rickAstley.jpg"
-                singer="Rick Astley"
-                fans="173.837 fãs"
-                />
-                <FavoriteSingers 
-                src="/eminemAvatar.jpg"
-                singer="Rick Astley"
-                fans="16.383.967 fãs"
-                />
-                <FavoriteSingers 
-                src="/siaAvatar.jpg"
-                singer="Sia"
-                fans="7.810.124 fãs"
-                />
-                <FavoriteSingers 
-                src="/articMonkeys.png"
-                singer="Artic Monkeys"
-                fans="4.167.886 fãs"
-                />
-              </div>
-            </div>
-            <div className="mt-16 flex flex-col">
-              <h3 className="ml-24 mb-8 text-zinc-100 font-semibold text-2xl">Feito para você</h3>
-              <div className="flex gap-6 justify-center">
-                <SingersSquare 
-                src="/rickAstley.jpg"
-                singer="Rick Astley"
-                fans="173.837 fãs"
-                />
-                <SingersSquare 
-                src="/eminemAvatar.jpg"
-                singer="Rick Astley"
-                fans="16.383.967 fãs"
-                />
-                <SingersSquare 
-                src="/siaAvatar.jpg"
-                singer="Sia"
-                fans="7.810.124 fãs"
-                />
-                <SingersSquare 
-                src="/articMonkeys.png"
-                singer="Artic Monkeys"
-                fans="4.167.886 fãs"
-                />
-              </div>
+            <SectionMain
+              title="Seus artitas favoritos"
+            >
+              {
+                favoriteSingersData.map(function (item) {
+                  return (
+                    <FavoriteSingers
+                      fans={item.fans}
+                      singer={item.singer}
+                      src={item.src}
+                      key={item.key}
+                    />
+                  )
+                })
+              }
+            </SectionMain>
+            <div className="mt-16 flex flex-col pb-8">
+              <SectionMain
+                title="Feito para você"
+              >
+                <div className="flex gap-6 justify-center">
+                  <SingersGrid
+                    ImageGrid="/ImageGrid.jpg"
+                  />
+                  <SingersGrid
+                    ImageGrid="/ImageGrid.jpg"
+                  />
+                  <SingersGrid
+                    ImageGrid="/ImageGrid.jpg"
+                  />
+                  <SingersGrid
+                    ImageGrid="/ImageGrid.jpg"
+                  />
+                </div>
+              </SectionMain>
             </div>
           </div>
         </main>
       </div>
-      <footer className="bg-zinc-800 border-t border-zinc-700 p-6 absolute bottom-0 w-full">
-        Footer
+      <footer className="bg-zinc-800 border-t border-zinc-700 px-6 py-4 absolute bottom-0 w-full flex justify-between">
+        <div className="flex items-center gap-4">
+          <div className="text-zinc-500 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+            <SkipBack size={18} weight='fill' />
+          </div>
+          <button
+            onClick={handleClickPlay}
+            className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+            {isPlaying ? <Play size={30} weight='fill' /> : <Pause size={30} weight='fill' />}
+          </button>
+          <div className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+            <SkipForward size={18} weight='fill' />
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between">
+            <span className="text-zinc-200 ml-14 text-sm">{nameMusic}</span>
+            <div className="mr-16 flex gap-2">
+              <div className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+                <Plus className="w-4 h-4" />
+              </div>
+              <div
+                onClick={handleClickHeart}
+                className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+                {isFavorite ? <Heart className="w-4 h-4" /> : <Heart className="w-4 h-4" weight="fill" color="red" />}
+              </div>
+            </div>
+          </div>
+          <div className="flex mt-1 items-center gap-2">
+            <span className="text-xs text-zinc-300">00:00</span>
+            <div className="w-[50vw] bg-zinc-400 h-[3px] rounded-lg"></div>
+            <span className="text-zinc-300 text-xs">02:27</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center">
+            <div className="text-zinc-100 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+              <Repeat className="w-4 h-4" strokeWidth={'1.5'} />
+            </div>
+            <div className="text-zinc-100 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+              <Shuffle className="w-4 h-4" strokeWidth={'1.5'} />
+            </div>
+            <div className="text-zinc-100 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+              <Volume2 className="w-4 h-4" strokeWidth={'1.5'} />
+            </div>
+            <div className="text-zinc-100 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
+              <Sliders className="w-4 h-4" weight='light' />
+            </div>
+          </div>
+          <div className="border-r h-12 border-zinc-700"></div>
+          <div className="flex items-center justify-center gap-2 p-2 rounded-md border-zinc-700 hover:bg-zinc-400">
+            <div className="bg-zinc-500 w-8 h-8 rounded-md "></div>
+            <span className="text-xs text-zinc-200 font-light" >Fila de espera</span>
+          </div>
+        </div>
       </footer>
     </div>
   )

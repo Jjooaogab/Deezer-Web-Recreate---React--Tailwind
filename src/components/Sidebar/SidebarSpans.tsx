@@ -6,5 +6,5 @@ interface SidebarSpanProps {
 }
 
 export default function SidebarSpan({ text, ...rest }: SidebarSpanProps) {
-  return <span className={twMerge("text-zinc-500 font-normal text-xs", rest.className)}>{text}</span>
+  return <span className={twMerge("text-zinc-500 font-normal text-xs cursor-pointer", rest.className)}>{text}</span>
 }
