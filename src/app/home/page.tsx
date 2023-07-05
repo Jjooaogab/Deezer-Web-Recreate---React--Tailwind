@@ -4,37 +4,11 @@ import SingersGrid from "@/components/Main/SingersGrid";
 import FavoriteSingers from "@/components/Main/SingersRounded";
 import SidebarItens from "@/components/Sidebar/SidebarItens";
 import SidebarSpan from "@/components/Sidebar/SidebarSpans";
+import { favoriteSingersData } from "@/data/singer";
 import { Bell, CaretLeft, CaretRight, Heart, MagnifyingGlass, Microphone, MusicNotes, Pause, Play, Plus, Radio, SkipBack, SkipForward, Sliders, SquaresFour } from "@phosphor-icons/react";
 import { Repeat, Shuffle, Volume2 } from "lucide-react";
 import { useState } from "react";
 
-
-const favoriteSingersData = [
-  {
-    src: "/rickAstley.jpg",
-    singer: "Rick Astley",
-    fans: "173.837 fãs",
-    key: 1
-  },
-  {
-    src: "/eminemAvatar.jpg",
-    singer: "Eminem",
-    fans: "16.383.967 fãs",
-    key: 1
-  },
-  {
-    src: "/siaAvatar.jpg",
-    singer: "Sia",
-    fans: "7.810.124 fãs",
-    key: 1
-  },
-  {
-    src: "/articMonkeys.png",
-    singer: "Artic Monkeys",
-    fans: "4.167.886 fãs",
-    key: 1
-  },
-]
 
 export default function HomePage() {
 
@@ -114,7 +88,11 @@ export default function HomePage() {
           <header className="flex items-center h-16 w-[100%] justify-between border-b border-zinc-700">
             <div className="flex gap-4 ml-8">
               <MagnifyingGlass size={24} weight="thin" className="text-zinc-300" />
-              <input type='text' placeholder="Buscar" className="px-2 w-96 bg-zinc-900 text-zinc-100 font-light focus:outline-none" />
+              <input 
+              type='text' 
+              placeholder="Buscar" 
+              className="px-2 w-96 bg-zinc-900 text-zinc-100 font-light focus:outline-none" 
+            /> 
             </div>
             <div className="flex items-center gap-6 mr-8">
               <Bell size={24} className="text-zinc-200" weight="fill" />
@@ -169,7 +147,13 @@ export default function HomePage() {
           <button
             onClick={handleClickPlay}
             className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
-            {isPlaying ? <Play size={30} weight='fill' /> : <Pause size={30} weight='fill' />}
+            {
+            isPlaying 
+            ?   
+            <Pause size={30} weight='fill' />
+            : 
+            <Play size={30} weight='fill' /> 
+            }
           </button>
           <div className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
             <SkipForward size={18} weight='fill' />
@@ -185,7 +169,7 @@ export default function HomePage() {
               <div
                 onClick={handleClickHeart}
                 className="text-zinc-200 p-2 transition-all hover:bg-zinc-600 hover:rounded-full hover:text-zinc-100">
-                {isFavorite ? <Heart className="w-4 h-4" /> : <Heart className="w-4 h-4" weight="fill" color="red" />}
+                {isFavorite ?<Heart className="w-4 h-4" weight="fill" color="red" /> :  <Heart className="w-4 h-4" />  }
               </div>
             </div>
           </div>
