@@ -17,6 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3877403277154810"
+     crossorigin="anonymous"></script>
     <html lang="en">
       <body className={Poppins.className}>{children}</body>
     </html>
